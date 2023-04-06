@@ -1,6 +1,6 @@
 {
    "name": "yowats0n-spotify-lametric",
-   "version": 1,
+   "version": 2,
    "builds": [
       {
          "src": "server.js",
