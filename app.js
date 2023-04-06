@@ -48,6 +48,7 @@ const generateRandomString = (length) => {
 var stateKey = 'spotify_auth_state';
 
 app.get('/nowPlayingClient', function (req, res) {
+   console.log(redirect_uri_client);
    var state = generateRandomString(16);
    res.cookie(stateKey, state);
 
@@ -64,6 +65,7 @@ app.get('/nowPlayingClient', function (req, res) {
 });
 
 app.get('/nowPlayingServer', function (req, res) {
+   console.log(redirect_uri_server);
    var state = generateRandomString(16);
    res.cookie(stateKey, state);
 
