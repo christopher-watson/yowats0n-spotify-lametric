@@ -27,8 +27,8 @@ app.use(express.static(__dirname + '/public'))
 
 const client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
-const redirect_uri_client = 'http://localhost:3000/callback-client'; // Your redirect uri
-const redirect_uri_server = 'http://localhost:3000/callback-server'; // Your redirect uri
+const redirect_uri_client = `${process.env.NODE_ENV === 'development' ? process.env.PORT : 'http://localhost:3000'}/callback-client`; // Your redirect uri
+const redirect_uri_server = `${process.env.NODE_ENV === 'development' ? process.env.PORT : 'http://localhost:3000'}/callback-server`; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
