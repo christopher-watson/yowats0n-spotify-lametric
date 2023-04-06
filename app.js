@@ -12,8 +12,8 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'))
-   .use(cors())
    .use(cookieParser());
+app.options('*', cors())
 
 const client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
