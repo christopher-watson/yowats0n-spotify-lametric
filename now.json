@@ -1,0 +1,16 @@
+{
+   "name": "yowats0n-spotify-lametric",
+   "version": "1.2.0",
+   "builds": [
+      {
+         "src": "server.js",
+         "use": "@vercel/node"
+      }
+   ],
+   "routes": [
+      {
+         "src": "/.*",
+         "dest": "server.js"
+      }
+   ]
+}

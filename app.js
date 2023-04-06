@@ -12,17 +12,18 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'))
-   .use(cookieParser());
-app.options('*', cors())
-app.use((req, res, next) => {
-   res.header('Access-Control-Allow-Origin', '*');
-   res.header('Access-Control-Allow-Headers', '*');
-   if (req.method === 'OPTIONS') {
-      res.headers('Access Control-Allow-Methods', 'POST, GET');
-      return res.status(200).json({});
-   }
-   next();
-});
+   .use(cookieParser())
+   .use(cors());
+// app.options('*', cors())
+// app.use((req, res, next) => {
+//    res.header('Access-Control-Allow-Origin', '*');
+//    res.header('Access-Control-Allow-Headers', '*');
+//    if (req.method === 'OPTIONS') {
+//       res.headers('Access Control-Allow-Methods', 'POST, GET');
+//       return res.status(200).json({});
+//    }
+//    next();
+// });
 
 const client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
