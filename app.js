@@ -27,10 +27,8 @@ app.use(express.static(__dirname + '/public'))
 
 const client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
-const redirect_uri_client = `${process.env.SERVER}/callback-client`; // Your redirect uri
-const redirect_uri_server = `${process.env.SERVER}/callback-server`; // Your redirect uri
-
-console.log(process.env.SERVER);
+const redirect_uri_client = `${process.env.NODE_ENV === 'production' ? 'https://yowats0n-spotify-lametric.vercel.app/' : 'http://localhost:3000'}/callback-client`; // redirect uri
+const redirect_uri_server = `${process.env.NODE_ENV === 'production' ? 'https://yowats0n-spotify-lametric.vercel.app/' : 'http://localhost:3000'}/callback-server`; // redirect uri
 
 /**
  * Generates a random string containing numbers and letters
