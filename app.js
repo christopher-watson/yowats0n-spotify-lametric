@@ -14,16 +14,6 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser())
    .use(cors());
-// app.options('*', cors())
-// app.use((req, res, next) => {
-//    res.header('Access-Control-Allow-Origin', '*');
-//    res.header('Access-Control-Allow-Headers', '*');
-//    if (req.method === 'OPTIONS') {
-//       res.headers('Access Control-Allow-Methods', 'POST, GET');
-//       return res.status(200).json({});
-//    }
-//    next();
-// });
 
 const client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
@@ -48,7 +38,6 @@ const generateRandomString = (length) => {
 var stateKey = 'spotify_auth_state';
 
 app.get('/nowPlayingClient', function (req, res) {
-   console.log(redirect_uri_client);
    var state = generateRandomString(16);
    res.cookie(stateKey, state);
 
@@ -65,7 +54,6 @@ app.get('/nowPlayingClient', function (req, res) {
 });
 
 app.get('/nowPlayingServer', function (req, res) {
-   console.log(redirect_uri_server);
    var state = generateRandomString(16);
    res.cookie(stateKey, state);
 
@@ -131,12 +119,11 @@ app.get('/callback-server', function (req, res) {
                   const artists = nowPlaying.item.artists.map(artist => artist.name).join(', ');
                   responseText = `${track} - ${artists}`;
                }
-               console.log(responseText);
                res.status(200).send({
                   "frames": [
                      {
                         "text": responseText,
-                        "icon": "i647" // Spotify logo.
+                        "icon": "28018" // Spotify logo.
                      }
                   ]
                });
@@ -198,7 +185,7 @@ app.get('/callback-client', function (req, res) {
 
             // use the access token to access the Spotify Web API
             request.get(options, async (error, response, body) => {
-               console.log('Spotify Body', body);
+               // console.log('Spotify Body', body);
                try {
                   const { body: nowPlaying } = await spotifyApi.getMyCurrentPlaybackState();
                   // let responseText = '';
