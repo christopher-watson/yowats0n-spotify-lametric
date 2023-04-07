@@ -4,7 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const request = require('request');
 const querystring = require('querystring');
-const path = require('path');
+// const path = require('path');
 const SpotifyWebApi = require('spotify-web-api-node');
 require('dotenv').config();
 
@@ -100,13 +100,13 @@ app.get('/callback-server', function (req, res) {
          if (!error && response.statusCode === 200) {
 
             const access_token = body.access_token
-            const refresh_token = body.refresh_token;
+            // const refresh_token = body.refresh_token;
 
-            var options = {
-               url: 'https://api.spotify.com/v1/me',
-               headers: { 'Authorization': 'Bearer ' + access_token },
-               json: true
-            };
+            // var options = {
+            //    url: 'https://api.spotify.com/v1/me',
+            //    headers: { 'Authorization': 'Bearer ' + access_token },
+            //    json: true
+            // };
 
             const spotifyApi = new SpotifyWebApi();
             spotifyApi.setAccessToken(access_token);
@@ -168,41 +168,40 @@ app.get('/callback-client', function (req, res) {
          json: true
       };
 
-      request.post(authOptions, function (error, response, body) {
+      request.post(authOptions, async (error, response, body) => {
          if (!error && response.statusCode === 200) {
 
             const access_token = body.access_token
-            const refresh_token = body.refresh_token;
+            // const refresh_token = body.refresh_token;
 
-            var options = {
-               url: 'https://api.spotify.com/v1/me',
-               headers: { 'Authorization': 'Bearer ' + access_token },
-               json: true
-            };
+            // var options = {
+            //    url: 'https://api.spotify.com/v1/me',
+            //    headers: { 'Authorization': 'Bearer ' + access_token },
+            //    json: true
+            // };
 
             const spotifyApi = new SpotifyWebApi();
             spotifyApi.setAccessToken(access_token);
 
             // use the access token to access the Spotify Web API
-            request.get(options, async (error, response, body) => {
-               // console.log('Spotify Body', body);
-               try {
-                  const { body: nowPlaying } = await spotifyApi.getMyCurrentPlaybackState();
-                  // let responseText = '';
-                  // if (nowPlaying['is_playing'] && nowPlaying.item && nowPlaying.item.name && nowPlaying.item.artists) {
-                  //    const track = nowPlaying.item.name;
-                  //    const artists = nowPlaying.item.artists.map(artist => artist.name).join(', ');
-                  //    responseText = `${track} - ${artists}`;
-                  // }
-                  console.log(nowPlaying);
-                  res.status(200).send({
-                     nowPlaying
-                  });
-               } catch (err) {
-                  console.error(err);
-                  res.status(err.statusCode).send(err.message);
-               }
-            });
+            // request.get(options, async (error, response, body) => {
+            try {
+               const { body: nowPlaying } = await spotifyApi.getMyCurrentPlaybackState();
+               // let responseText = '';
+               // if (nowPlaying['is_playing'] && nowPlaying.item && nowPlaying.item.name && nowPlaying.item.artists) {
+               //    const track = nowPlaying.item.name;
+               //    const artists = nowPlaying.item.artists.map(artist => artist.name).join(', ');
+               //    responseText = `${track} - ${artists}`;
+               // }
+               console.log(nowPlaying);
+               res.status(200).send({
+                  nowPlaying
+               });
+            } catch (err) {
+               console.error(err);
+               res.status(err.statusCode).send(err.message);
+            }
+            // });
 
             // // we can also pass the token to the browser to make requests from there
             // res.redirect('/#' +
